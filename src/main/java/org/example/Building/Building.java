@@ -1,23 +1,28 @@
 package org.example.Building;
 
 import org.example.Staff.StaffMember;
+import org.example.Staff.StaffMembersDAO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Building {
     private final String adress;
     private final String name;
     private final List<Rooms> rooms;
-    private List<StaffMember> staffMembers;
+    private List<Optional<StaffMember>> staffMembers;
+    private StaffMembersDAO dao;
+
     public Building(String adress, String name) {
         this.adress = adress;
         this.name = name;
         this.rooms = new ArrayList<Rooms>();
-        this.staffMembers = new ArrayList<StaffMember>();
+        this.staffMembers = new ArrayList<Optional<StaffMember>>();
         createRooms();
 
     }
+
     private void createRooms() {
         Rooms[] roomsEnum = Rooms.values();
         for (Rooms room : roomsEnum) {
@@ -25,6 +30,9 @@ public class Building {
         }
     }
 
+    public void setDao(StaffMembersDAO dao) {
+        this.dao = dao;
+    }
 
     public String getAdress() {
         return adress;
@@ -34,9 +42,38 @@ public class Building {
         return name;
     }
 
+    public Boolean loadStaffMembers() {
+        staffMembers = this.dao.readAll();
+        if (!(staffMembers.isEmpty())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public List<Optional<StaffMember>> getStaffMembers() {
+        return staffMembers;
+    }
+
+    public Optional<StaffMember> getStaffMember(Integer id) {
+        List<Optional<StaffMember>> listOfStaff = getStaffMembers();
+        for (Optional<StaffMember> s : listOfStaff) {
+            if (s.get().getId().equals(id)) {
+                return s;
+            }
+        }
+        return Optional.empty();
+    }
+
+    public void printStaffMembers() {
+        staffMembers.stream().forEach(System.out::println);
+    }
+
     public List<Rooms> getRooms() {
         return rooms;
     }
+
+
     public void printAllRoomsInBuilding() {
         if (!rooms.isEmpty()) {
             for (Rooms room : rooms) {

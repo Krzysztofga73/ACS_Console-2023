@@ -30,18 +30,20 @@ public class Sandbox {
 
     }
 
-    public static void test(){
+    public static void test() {
         Building dc1 = new Building("Warszawa", "DC1");
         StaffMembersDAO dao = new StaffMembersDAO("C:\\Krzysztof\\IT_PROJECTS\\00_Kontrola_dostępu\\ACS_DC_Simulator\\StaffMembers.csv");
+        dc1.setDao(dao);
+        dao.create(new StaffMember("Gad", "Krz", 1, "Security Engineer"));
+        dao.create(new StaffMember("Krz", "Krz", 2, "Security Lead"));
+        dao.create(new StaffMember("Krz", "Gad", 3, "Electrical Engineer"));
+        dao.create(new StaffMember("Krzysztof", "Gad", 4, "Electrical Engineer"));
 
-        dao.create(new StaffMember("Gad","Krz", 1 , "Security Engineer"));
-        dao.create(new StaffMember("Krz","Krz", 2 , "Security Lead"));
-        dao.create(new StaffMember("Krz","Gad", 3 , "Electrical Engineer"));
-        dao.create(new StaffMember("Krzysztof","Gad", 4 , "Electrical Engineer"));
-
-        System.out.println(dao.read(3).get());
         System.out.println("odczyt z cratu");
         dao.readAll().stream().forEach(System.out::println);
+        System.out.println(dao.read(8));
+
+        /*
         System.out.println("Test updatu i deletu");
 
         dao.delete(3);
@@ -49,19 +51,17 @@ public class Sandbox {
         dao.update(1, new StaffMember("Krz","Krzysztof", 3 , "Security Lead"));
         dao.update(4, new StaffMember("Krzysztof","Gad", 5 , "Electrical Engineer"));
         dao.create(new StaffMember("Gad","Krz", 1 , "Security Engineer"));
- /*
+
         dao.readAll().stream().forEach(System.out::println);
 */
         System.out.println();
 
+        System.out.println("________Test ACS system__________");
+        System.out.println(dc1.loadStaffMembers());
+        dc1.printStaffMembers();
+        ACS_System acs_System = new ACS_System(dc1, dao);
 
-
-
-
-
-
-
-
+        System.out.println(acs_System.giveAccess(3, Zones.SECURE));
 
 
     }

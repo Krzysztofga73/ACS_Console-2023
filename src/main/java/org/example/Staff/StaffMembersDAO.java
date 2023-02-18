@@ -178,10 +178,10 @@ public class StaffMembersDAO implements DAO<StaffMember> {
         }
     }
 
-    public  Boolean sortStaffMembersInDataBase(){
+    public Boolean sortStaffMembersInDataBase() {
         List<StaffMember> staffMembers = getStaffMembersFromOptional();
-        Collections.sort(staffMembers, (s1,s2) -> {
-            return s2.getId()-s1.getId();
+        Collections.sort(staffMembers, (s1, s2) -> {
+            return s2.getId() - s1.getId();
         });
         try {
             FileWriter writer = new FileWriter(this.dataBaseFilePath, false);
