@@ -6,7 +6,7 @@ import org.example.Building.Zones;
 public interface AccessToZones {
     Boolean giveAccessForDepartment(Zones zone);
     Boolean giveAccess(Integer id, Zones zone);
-    Boolean checkAccess(StaffMember staffMember, Rooms room);
+    Boolean checkAccess(Integer id, Rooms room);
     Boolean giveAccessToRoom(StaffMember staffMember, Rooms room);
 
 }

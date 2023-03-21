@@ -15,12 +15,17 @@ public enum Rooms  {
 
 
 
+
     private double area;
     private Zones securityLevel;
 
     Rooms(double area, Zones securityLevel){
         this.area = area;
         this.securityLevel = securityLevel;
+    }
+
+    public Zones getSecurityLevel() {
+        return securityLevel;
     }
 
     @Override
@@ -30,4 +35,5 @@ public enum Rooms  {
                 ", securityLevel=" + securityLevel +
                 '}';
     }
+
 }

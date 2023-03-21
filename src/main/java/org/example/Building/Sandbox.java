@@ -63,6 +63,8 @@ public class Sandbox {
 
         System.out.println(acs_System.giveAccess(3, Zones.SECURE));
 
+        System.out.println(acs_System.checkAccess(3,Rooms.COR01));
+
 
     }
 
