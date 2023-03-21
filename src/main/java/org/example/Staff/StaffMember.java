@@ -1,5 +1,7 @@
 package org.example.Staff;
 
+import java.util.Objects;
+
 public class StaffMember {
     protected final Integer id;
     protected final String name;
@@ -51,6 +53,16 @@ public class StaffMember {
         return new String [] {this.id.toString(), this.name, this.surname, this.department};
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StaffMember that = (StaffMember) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(department, that.department);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, surname, department);
+    }
 }

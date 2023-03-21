@@ -39,31 +39,38 @@ public class Sandbox {
         dao.create(new StaffMember("Krz", "Gad", 3, "Electrical Engineer"));
         dao.create(new StaffMember("Krzysztof", "Gad", 4, "Electrical Engineer"));
 
+
+
         System.out.println("odczyt z cratu");
         dao.readAll().stream().forEach(System.out::println);
         System.out.println(dao.read(8));
 
-        /*
+
         System.out.println("Test updatu i deletu");
 
         dao.delete(3);
 
         dao.update(1, new StaffMember("Krz","Krzysztof", 3 , "Security Lead"));
-        dao.update(4, new StaffMember("Krzysztof","Gad", 5 , "Electrical Engineer"));
+        System.out.println("TEST 21.03->>>>>>>>>>>>>>>>>>>>>>>>>\n,,,,,,,,,,,,>>>>>>>>>>");
+        System.out.println(dao.update(4, new StaffMember("Krzysztof", "Gad", 4, "Electrical Engineer")));
         dao.create(new StaffMember("Gad","Krz", 1 , "Security Engineer"));
 
         dao.readAll().stream().forEach(System.out::println);
-*/
+
         System.out.println();
 
         System.out.println("________Test ACS system__________");
         System.out.println(dc1.loadStaffMembers());
         dc1.printStaffMembers();
+        var staffMember1 = dc1.getStaffMember(1);
         ACS_System acs_System = new ACS_System(dc1, dao);
 
         System.out.println(acs_System.giveAccess(3, Zones.SECURE));
-
+        System.out.println(acs_System.giveAccessToRoom(3, Rooms.MMR01));
+        System.out.println("Test check Access");
         System.out.println(acs_System.checkAccess(3,Rooms.COR01));
+        System.out.println(acs_System.checkAccess(3,Rooms.MMR01));
+        System.out.println(acs_System.checkAccess(3,Rooms.LOB01));
 
 
     }

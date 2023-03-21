@@ -56,17 +56,16 @@ public class Building {
     }
 
     public Optional<StaffMember> getStaffMember(Integer id) {
-        List<Optional<StaffMember>> listOfStaff = getStaffMembers();
-        for (Optional<StaffMember> s : listOfStaff) {
+        for (var s : staffMembers) {
             if (s.get().getId().equals(id)) {
                 return s;
-            }
+             }
         }
         return Optional.empty();
     }
 
     public void printStaffMembers() {
-        staffMembers.stream().forEach(System.out::println);
+        staffMembers.stream().forEach(staffMember -> System.out.println(staffMember.get()));
     }
 
     public List<Rooms> getRooms() {
@@ -83,6 +82,7 @@ public class Building {
             System.out.println("Rooms were not added to the building!");
         }
     }
+
 }
 
 
