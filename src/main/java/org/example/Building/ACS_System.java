@@ -10,13 +10,13 @@ public class ACS_System implements AccessToZones {
     private final Building building;
     private final StaffMembersDAO dao;
 
-    private Map<StaffMember, Zones> accessToZonesMao;
+    private Map<StaffMember, Zones> accessToZonesMap;
     private Map<StaffMember, Rooms> accessToRoomsMap;
 
     public ACS_System(Building building, StaffMembersDAO dao) {
         this.building = building;
         this.dao = dao;
-        this.accessToZonesMao = new HashMap<>();
+        this.accessToZonesMap = new HashMap<>();
         this.accessToRoomsMap = new HashMap<>();
     }
 
@@ -25,7 +25,7 @@ public class ACS_System implements AccessToZones {
     public Boolean giveAccess(Integer id, Zones zone) {
         Optional<StaffMember> staffMember = building.getStaffMember(id);
         if (staffMember.isPresent()) {
-            accessToZonesMao.put(staffMember.get(), zone);
+            accessToZonesMap.put(staffMember.get(), zone);
             System.out.println("Staff memeber: " + staffMember.get().getName() + " " + staffMember.get().getSurname() + " ID: "
                     + staffMember.get().getId() + " has access to zone " + zone);
             return true;
@@ -38,12 +38,11 @@ public class ACS_System implements AccessToZones {
     @Override
     public Boolean checkAccess(Integer id, Rooms room) {
         var staffMember = building.getStaffMember(id);
-        if ((!staffMember.equals(Optional.empty())) && accessToZonesMao.containsKey(staffMember.get()) && building.getRooms().contains(room)) {
-            if (accessToZonesMao.get(staffMember.get()).equals(room.getSecurityLevel())) {
+        if ((!staffMember.equals(Optional.empty())) && building.getRooms().contains(room)) {
+            if (accessToZonesMap.containsKey(staffMember.get()) && accessToZonesMap.get(staffMember.get()).equals(room.getSecurityLevel())) {
                 System.out.println("Access to room : " + room + " is granted! " + staffMember.get().getName() + " " +
                         staffMember.get().getSurname() + " can enter this room!");
-                return true;
-            } else if (accessToRoomsMap.get(staffMember.get()).equals(room)) {
+            } else if (accessToRoomsMap.containsKey(staffMember.get()) && accessToRoomsMap.get(staffMember.get()).equals(room)) {
                 System.out.println("Access to room : " + room.name() + " is granted! " + staffMember.get().getName() + " " +
                         staffMember.get().getSurname() + " can enter this room!");
                 return true;
@@ -52,18 +51,17 @@ public class ACS_System implements AccessToZones {
                         " can't enter this room!");
                 return false;
             }
-        } else {
-            return false;
         }
+        return false;
     }
+
 
     @Override
     public Boolean giveAccessToRoom(Integer id, Rooms room) {
         var staffMember = building.getStaffMember(id);
-        if (accessToRoomsMap.containsKey(staffMember.get()) && accessToRoomsMap.get(staffMember.get()).equals(room)){
+        if (accessToRoomsMap.containsKey(staffMember.get()) && accessToRoomsMap.get(staffMember.get()).equals(room)) {
             return false;
-        }
-        else if (staffMember.isPresent()) {
+        } else if (staffMember.isPresent()) {
             accessToRoomsMap.put(staffMember.get(), room);
             System.out.println("Staff memeber: " + staffMember.get().getName() + " " + staffMember.get().getSurname() + " ID: "
                     + staffMember.get().getId() + " has access to room " + room);

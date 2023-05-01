@@ -36,4 +36,10 @@ public enum Rooms  {
                 '}';
     }
 
+    public static Rooms getRoomByIndex(String index) {
+        int idx = Integer.parseInt(index);
+        Rooms[] values = Rooms.values();
+        return values[idx];
+    }
+
 }

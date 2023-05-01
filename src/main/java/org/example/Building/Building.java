@@ -20,8 +20,8 @@ public class Building {
         this.rooms = new ArrayList<Rooms>();
         this.staffMembers = new ArrayList<Optional<StaffMember>>();
         createRooms();
-
     }
+
 
     private void createRooms() {
         Rooms[] roomsEnum = Rooms.values();
@@ -59,7 +59,7 @@ public class Building {
         for (var s : staffMembers) {
             if (s.get().getId().equals(id)) {
                 return s;
-             }
+            }
         }
         return Optional.empty();
     }

@@ -1,5 +1,7 @@
 package org.example.Building;
 
+import org.example.Application.UserOption;
+
 public enum Zones {
 
     PUBLIC(1),
@@ -11,9 +13,14 @@ public enum Zones {
     VITAL_TENAT(7);
 
     private Integer securityLevel;
-    Zones(Integer securityLevel){
+
+    Zones(Integer securityLevel) {
         this.securityLevel = securityLevel;
     }
 
-
+    public static Zones getZonesByIndex(String index) {
+        int idx = Integer.parseInt(index);
+        Zones[] values = Zones.values();
+        return values[idx];
+    }
 }
